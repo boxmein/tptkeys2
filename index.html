@@ -1,0 +1,130 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>TPT Key Shortcuts</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/unsemantic/0/unsemantic-grid-responsive.css" />
+        <link rel="stylesheet" type="text/css" href="css/main.css" />
+    </head>
+    <body>
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <h1>tptkeys<sub>2</sub></h1>
+
+        <div class="grid-container">
+            <div class="grid-75">
+                <object id="leopard" data="qwerty keyboard.svg"
+                    type="image/svg+xml"
+                    width="100%">
+                    The keyboard is made in SVG, which somehow isn't supported.
+                    <a href="https://www.youtube.com/watch?v=yJxCdh1Ps48">:(</a>
+                </object>
+            </div>
+            <div class="grid-25">
+                <div id="description">
+                    <p>This site tries to give you an interactive overview of what keyboard
+                    shortcuts are available in the game
+                    <a href="http://powdertoy.co.uk">The Powder Toy</a>.</p>
+
+                    <p>Click on a key on this keyboard image to see what the key
+                    does. You can also press the key combination - however some keys
+                    can not be caught because they're an integral part of your
+                    browser.</p>
+
+                    <p>Want the old one? <a href="v1.html">Here.</a></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="pointless">
+            <p>Last updated: <b>Mar 18 2015.</b></p>
+            <p>The TPT version corresponds to <b>90.2</b> (Commit SHA
+            <a href="https://github.com/simtr/The-Powder-Toy/commit/7d70c1f8d7278c4e9e47e9e817edcab8313eccb1">7d70c1f8</a>).</p>
+
+            <p>Feel free to fire feedback at me at <a href="mailto:boxmein@boxmein.net">boxmein@boxmein.net</a>.</p>
+        </div>
+
+        <script src="js/data.js"></script>
+
+        <script>
+            window.onload = function() {
+
+                // Display data on key events
+                var keyConversions = {
+                  '65': 'A', '66': 'B', '67': 'C', '68': 'D', '69': 'E',
+                  '70': 'F', '71': 'G', '72': 'H', '73': 'I', '74': 'J',
+                  '75': 'K', '76': 'L', '77': 'M', '78': 'N', '79': 'O',
+                  '80': 'P', '81': 'Q', '82': 'R', '83': 'S', '84': 'T',
+                  '85': 'U', '86': 'V', '87': 'W', '88': 'X', '89': 'Y',
+                  '90': 'Z',
+
+                  '49': '1', '50': '2', '51': '3', '52': '4', '53': '5',
+                  '54': '6', '55': '7', '56': '8', '57': '9', '48': '0',
+
+                  '222': 'tilde',
+                  '112': 'F1',
+                  '114': 'F3',
+                  '189': '=',
+                  '9': 'Tab',
+                  '219': 'lbrack',
+                  '221': 'rbrack',
+                  '186': 'semicolon',
+                  '32': 'spacebar',
+                  '37': 'arrow-left',
+                  '38': 'arrow-up',
+                  '39': 'arrow-right',
+                  '40': 'arrow-down'
+                };
+
+                document.body.addEventListener('keydown', function(evt) {
+                  var key = keyConversions[evt.keyCode] || 'invalid';
+                  // console.log(evt.keyCode, key);
+                  if (data.hasOwnProperty(key)) {
+                    desc.innerHTML = data[key];
+                  }
+                });
+
+                // Make the keyboard image interactive
+                var doc = document.getElementById('leopard').contentDocument;
+                var desc = document.getElementById('description');
+
+                var keyClicked = function(evt) {
+                    var identifier = evt.target.id.slice(4);
+
+                    // console.log(identifier);
+
+                    if (data.hasOwnProperty(identifier)) {
+                        desc.innerHTML = data[identifier];
+                    }
+                };
+
+                for (var keys = doc.getElementsByClassName('key'),
+                            i = keys.length;
+                            i --> 0;) {
+                    // add "used" marker to keys that have a helptext
+
+                    var ident = keys[i].id.slice(4);
+                    if (data.hasOwnProperty(ident)) {
+                        keys[i].classList.add('used');
+                        keys[i].addEventListener('click', keyClicked);
+                    }
+                }
+            };
+        </script>
+
+        <script async>
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='//www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','UA-34425443-3','auto');ga('send','pageview');
+        </script>
+    </body>
+</html>
